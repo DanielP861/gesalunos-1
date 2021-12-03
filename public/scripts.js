@@ -1,4 +1,25 @@
 
+function getNavbar(){
+    const nbar = document.getElementById('nbar')
+    fetch('http://localhost:3000/navbar')
+    .then(res => res.text())
+    .then((html)=>[
+        nbar.innerHTML += html
+    ])
+    .catch(function(err){
+        alert('Ocorreu um problema...')
+    })
+}
+
+
+
+
+
+
+
+
+
+/*funções antigas, podem dar jeito :)*/
 function getData(){
     fetch('http://localhost:5000/bd')
     .then(res => res.json())
