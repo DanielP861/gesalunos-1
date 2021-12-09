@@ -1,3 +1,26 @@
+function initForm(){
+    getNavbar()
+    getTipos()
+}
+
+function getTipos(){
+    const tipo = document.getElementById('tipo')
+    fetch('http://localhost:3000/tipos')
+    .then(res => res.json())
+    .then(data => {
+        tipo.innerHTML+=
+        `<option selected>Escolha um tipo de utilizador...</option>`
+        for(i in data){
+            let op = 
+            `<option value="${data[i].idtipo}">${data[i].designacao}</option>`
+            tipo.innerHTML += op
+        }
+    })
+    .catch((err)=>{
+        alert('Erro no pedido...')
+    })
+}
+
 
 function getNavbar(){
     const nbar = document.getElementById('nbar')
@@ -9,7 +32,15 @@ function getNavbar(){
     .catch(function(err){
         alert('Ocorreu um problema...')
     })
+
 }
+
+
+
+
+
+
+
 
 
 

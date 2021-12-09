@@ -9,8 +9,18 @@ app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
-app.get('/navbar',(req,res)=>{
+app.get('/navbar',(req,res) => {
     res.sendFile(path.join(__dirname, './public/navbar.html'))
+})
+
+app.get('/tipos', (req,res) => {
+    connection.query('SELECT * FROM tipos', (err,result) => {
+        if(err)
+            res.json('Ocorreu um problema na base de dados...')
+        else {
+            res.json(result)
+        }
+    })
 })
 
 const port =3000
