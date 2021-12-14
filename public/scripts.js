@@ -8,6 +8,7 @@ function getTipos(){
     fetch('http://localhost:3000/tipos')
     .then(res => res.json())
     .then(data => {
+        console.log(data)
         tipo.innerHTML+=
         `<option selected>Escolha um tipo de utilizador...</option>`
         for(i in data){
@@ -19,6 +20,52 @@ function getTipos(){
     .catch((err)=>{
         alert('Erro no pedido...')
     })
+}
+
+function adicionar(){
+    //obter os valores introduzidos no formulário
+    let nome = document.getElementById('nome').value
+    let morada_rua = document.getElementById('morada_rua').value
+    let morada_num = document.getElementById('morada_num').value
+    let dnasc = document.getElementById('dnasc').value
+    let telem = document.getElementById('telem').value
+    let email = document.getElementById('email').value
+    let tipo = document.getElementById('tipo').value
+
+    //criar um objeto com os valores
+    let objeto = {
+        //nome na db : nome da variável com o valor
+        nomeutilizador : nome,
+        moradarua : morada_rua,
+        moradanumero : morada_num,
+        datanascimento : dnasc,
+        telemovel : telem,
+        email : email,
+        idtipo : tipo
+    }
+
+    //transformar o objeto em JSON
+    let objetoJSON = JSON.stringify(objeto)
+
+    //preparar as opções do pedido
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: objetoJSON
+    }
+    
+    //fazer fetch com as opções acima definidas
+    fetch('http://localhost:3000/utilizador', options)
+    .then(res => res.text())
+    .then(text => {
+        alert(text)
+    })
+    .catch((err)=>{
+        alert('Ocorreu um erro no pedido...')
+    })
+
 }
 
 

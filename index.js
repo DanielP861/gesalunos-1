@@ -1,27 +1,16 @@
 const express = require('express')
-const path = require('path')
 const app = express()
-const connection = require('./dbconnection')
+
 app.use(express.static('./public'))
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ extended: false }));
 
-app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'))
-})
-
-app.get('/navbar',(req,res) => {
-    res.sendFile(path.join(__dirname, './public/navbar.html'))
-})
-
-app.get('/tipos', (req,res) => {
-    connection.query('SELECT * FROM tipos', (err,result) => {
-        if(err)
-            res.json('Ocorreu um problema na base de dados...')
-        else {
-            res.json(result)
-        }
-    })
-})
+//rotas para os pedidos
+app.use('/',require('./routes/mainRoute'))
+app.use('/navbar',require('./routes/navbarRoute'))
+app.use('/tipos', require('./routes/tiposRoute'))
+app.use('/utilizador',require('./routes/utilizadorRoute'))
 
 const port =3000
  
